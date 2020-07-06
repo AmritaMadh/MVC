@@ -1,0 +1,41 @@
+string strName = string.Empty;
+
+                   
+
+                    if (this.ControlPage.GetIdentity == null)
+
+                    {
+
+                        return;
+
+                    }
+
+                    //strName = this.ControlPage.GetIdentity.Name;
+
+                    strName = System.Threading.Thread.CurrentPrincipal.Identity.Name.Replace(FNFIConfig.DomainName, "");
+
+                    string domain = ConfigurationManager.AppSettings["Domain"].ToString();
+
+ 
+
+                    DirectorySearcher dssearch = new DirectorySearcher(domain);
+
+                    dssearch.Filter = "(&(objectClass=user)(samaccountname=" + strName + "))";
+
+                    // dssearch.Filter = "(&(objectClass=user)(sAMAccountName=" + strName + "))";
+
+                    SearchResult sresult = dssearch.FindOne();
+
+                    if (sresult != null)
+
+                    {
+
+                        DirectoryEntry dsresult = sresult.GetDirectoryEntry();
+
+                        //empID = int.Parse(dsresult.Properties["employeeNumber"][0].ToString());
+
+                        empID = int.Parse(dsresult.Properties["title"][0].ToString());
+
+                        name = dsresult.Properties["displayName"][0].ToString();
+
+                    }
