@@ -1,0 +1,61 @@
+Scenario one:
+what if a user is requesting the same view 50 times in 2 minutes?
+we always use caching for these type of scenarios. ’. This will make sure that there are no actions which are not required that will be happening within a time period. So if a user
+already visited the same view within the time periods, the controller action won’t fire again if user calls the view again. It will return the same view which has been already
+rendered.
+
+Scenario two:
+Imagine that you have a controller which will return your debit/credit transaction from the database. What if the database is normally updating once in a week? Usually whenever 
+a user hits the controller, it will hit the DB and fetch the data right? But in this scenario, it is not needed to hit the DB again since the data will be the same for a week. 
+So we can set the Output Caching so that within the time interval, the controller contents will be in cache so that the view can render the cached data.
+
+Question:
+1. what if large data are to be cached. will it affect INMEMORY/ performance.
+2. what is better, save content at client or server
+   we should not cache any personalized data in the server.
+   cached the data in client side.
+   [OutputCache(Duration = 10, VaryByParam = "none", 
+	Location=OutputCacheLocation.Client, NoStore=true)]
+        public ActionResult Index()
+        {
+            User u = new User();
+            return Content(u.getUserCountry());
+        }
+        
+        NoStore=true? This is to intimate the proxy server that should not save any copies of these data in server.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Caching:
+It helps to avoid the unwanted or frequesnt actions which already happend recently just by using Output Caching. The view which is rendered recently won't fire the controller 
+again if it is in the time limit period, it will just re show the one which is already rendered. It will cache the contents which are returned by the controller action.
+
+WHERE WE CACHED:
+contents are cached in 3-locations:
+  * web server
+  * proxy server
+  * web browser
+  
+  can cached content in server, client or both server and client by using location property. By default, the location will be ‘any’.
+
+1. [OutputCache(Duration = 300, VaryByParam = "none")]
+        public ActionResult Index()
+        {
+            return Content(DateTime.Now.ToString("T"));
+        }
+        
+        
+2. Cache Profiles:
+There is another way of achieving the caching, that is cache profiles, which is nothing but creating a tag in web .config file and apply that for different controllers. 
+In this way, you can have the same cache profile for different controls. And also, it is easy to make any changes in the cache profile since it is just a tag in the web.config 
+file. Any changes in cache profile will get applied easily. I found this is the most effective way of caching. We can do the cache profile as follows:
+
+<caching>
+<outputCacheSettings>
+    <outputCacheProfiles>
+        <add name="Admin" 
+
+        duration="86420" varyByParam="none"/>
+    </outputCacheProfiles>
+</outputCacheSettings>
+</caching>
+
