@@ -12,9 +12,13 @@ So we can set the Output Caching so that within the time interval, the controlle
 Question:
 1. what if large data are to be cached. will it affect INMEMORY/ performance.
 2. what is better, save content at client or server
-   we should not cache any personalized data in the server.
-   cached the data in client side.
-   [OutputCache(Duration = 10, VaryByParam = "none", 
+   - we should not cache any personalized data in the server.
+   - Suppose you want to cache the logged in use information then you should cache the data on client browser since this data is specific to a user. If you will cache this data 
+     on the server, all the user will see the same information that is wrong.
+   - cached the data in client side.
+   - You should cache the data on the server which is common to all the users 
+   
+     [OutputCache(Duration = 10, VaryByParam = "none", 
 	Location=OutputCacheLocation.Client, NoStore=true)]
         public ActionResult Index()
         {
@@ -29,6 +33,8 @@ Caching:
 It helps to avoid the unwanted or frequesnt actions which already happend recently just by using Output Caching. The view which is rendered recently won't fire the controller 
 again if it is in the time limit period, it will just re show the one which is already rendered. It will cache the contents which are returned by the controller action.
 
+caching provides a way of storing frequently accessed data and reusing the data. This is an effective way for improving web application,s performance.
+
 WHERE WE CACHED:
 contents are cached in 3-locations:
   * web server
@@ -37,7 +43,7 @@ contents are cached in 3-locations:
   
   can cached content in server, client or both server and client by using location property. By default, the location will be ‘any’.
 
-1. using OutputCache attribute
+1. Output Cache Filter
 [OutputCache(Duration = 300, VaryByParam = "none")]
         public ActionResult Index()
         {
@@ -59,4 +65,12 @@ file. Any changes in cache profile will get applied easily. I found this is the 
     </outputCacheProfiles>
 </outputCacheSettings>
 </caching>
+
+
+References:
+-----------
+https://www.codeproject.com/Articles/1046483/Caching-In-MVC
+
+Advantages:
+https://www.dotnettricks.com/learn/mvc/understanding-caching-in-aspnet-mvc-with-example
 
