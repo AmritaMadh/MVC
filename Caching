@@ -37,7 +37,8 @@ contents are cached in 3-locations:
   
   can cached content in server, client or both server and client by using location property. By default, the location will be ‘any’.
 
-1. [OutputCache(Duration = 300, VaryByParam = "none")]
+1. using OutputCache attribute
+[OutputCache(Duration = 300, VaryByParam = "none")]
         public ActionResult Index()
         {
             return Content(DateTime.Now.ToString("T"));
