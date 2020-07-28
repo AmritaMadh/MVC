@@ -69,8 +69,9 @@ file. Any changes in cache profile will get applied easily. I found this is the 
 
 References:
 -----------
+https://devnet.kentico.com/articles/mvc-site-too-slow-caching-to-the-rescue - Important
 https://www.codeproject.com/Articles/1046483/Caching-In-MVC
-
-Advantages:
 https://www.dotnettricks.com/learn/mvc/understanding-caching-in-aspnet-mvc-with-example
+https://www.c-sharpcorner.com/article/3-ways-to-improve-performance-using-caching-in-asp-net-mvc-application/
+
 
