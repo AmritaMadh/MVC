@@ -35,6 +35,9 @@ again if it is in the time limit period, it will just re show the one which is a
 
 caching provides a way of storing frequently accessed data and reusing the data. This is an effective way for improving web application,s performance.
 
+Output cache should be used whenever possible. It allows the highest performance boost in general as it caches a fully rendered page (including views) and saves not only 
+data-gathering but also processing time to render and output data.
+
 WHERE WE CACHED:
 contents are cached in 3-locations:
   * web server
